@@ -1,0 +1,42 @@
+:root {
+    --color1: rgb(0, 0, 107);
+    --color2: rgb(69, 69, 175);
+    --color3: white;
+}
+
+* {
+    margin: 10;
+}
+
+
+body {
+    background: var(--color3);
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    background-image: linear-gradient(to right, var(--color2), var(--color1));
+    color: var(--color3);
+    text-align: center;
+}
+
+main {
+    display:flex;
+    justify-content: space-between;
+}
+
+/* search section start */
+.search {
+    display:flex;
+    flex-direction: column;
+    width: 25%
+}
+
+/* search section end */
+
+/* Forecast section start */
+.weather-info {
+    display:flex;
+    flex-direction: column;
+    width: 70%;
+}
