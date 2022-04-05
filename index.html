@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <!-- Contain main page content -->
+    <main>
+        <!-- Search bar, button, and past searches -->
+        <section class="search">
+            <label for="search-bar" id="search-bar-text">Search for a City:</label>
+            <input type="text" id="search-bar" placeholder="City Name" />
+            <button id="search-btn" type="submit">Search</button>
+            <ul id="search-list"></ul>
+        </section>
+
+        <!-- Weather dashboard forecast box and cards -->
+        <section class="weather-info">
+            <!-- Today's forecast -->
+            <div class="current-forcast">
+                <h2>City/Date</h3> 
+            </div>
+
+            <!-- 5-day forcast cards -->
+            <div class="future-forcast">
+                <h3>5-Day Forecast:</h3>
+                <div class="container"></div>
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
