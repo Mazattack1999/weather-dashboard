@@ -16,17 +16,19 @@
     <main>
         <!-- Search bar, button, and past searches -->
         <section class="search">
-            <label for="search-bar" id="search-bar-text">Search for a City:</label>
-            <input type="text" id="search-bar" placeholder="City Name" />
-            <button id="search-btn" type="submit">Search</button>
+            <form>
+                <label for="search-bar" id="search-bar-text">Search for a City:</label>
+                <input type="text" id="search-bar" placeholder="City Name" />
+                <button id="search-btn" type="submit">Search</button>
+            </form>
             <ul id="search-list"></ul>
         </section>
 
         <!-- Weather dashboard forecast box and cards -->
         <section class="weather-info">
             <!-- Today's forecast -->
-            <div class="current-forcast">
-                <h2>City/Date</h3> 
+            <div class="current-forecast">
+                <h2>City/Date 🌨️</h3> 
             </div>
 
             <!-- 5-day forcast cards -->
@@ -34,8 +36,6 @@
                 <h3>5-Day Forecast:</h3>
                 <div class="container"></div>
             </div>
-
-
         </section>
 
 
