@@ -2,7 +2,7 @@ var apiKey = "306788568658af908965e1ffaa757f64";
 var cityInput = "Irmo";
 var lat;
 var lon;
-var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=20&lon=86&exclude=minutely,hourly,alerts&appid=" + apiKey + "&units=imperial";
+var weatherInfo;
 
 var cities = [];
 // emojis from https://emojipedia.org/search/?q=weather
@@ -17,14 +17,13 @@ function loadCityData() {
     }
 }
 
-// return data from url
-function getInfo(url) {
+// get weather info from city
+function getWeatherInfo(url) {
 fetch(url)
 .then(function (response){
     return response.json();
 }).then(function(data){
     console.log(data);
-    return data;
 }).catch(function(error){
     console.log(error.message);
 })
@@ -45,6 +44,9 @@ function getCoords(city) {
             lat = data[0].lat;
             lon = data[0].lon;
             console.log(lat, lon);
+            // create url to fetch
+            var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat +"&lon="+ lon +"&exclude=minutely,hourly,alerts&appid=" + apiKey + "&units=imperial";
+            getWeatherInfo(weatherUrl);
         } else {
             console.log("City not found");
         }
