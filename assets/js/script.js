@@ -1,12 +1,15 @@
 var apiKey = "306788568658af908965e1ffaa757f64";
-var cityInput = "Irmo";
+var cityInput = "Cairo";
 var lat;
 var lon;
+var icon;
 var weatherInfo;
 
-var cities = [];
-// emojis from https://emojipedia.org/search/?q=weather
-var weatherEmojis = ["☁️","🌡️","🌫️","❄️", "🌨️", "⛅",   ]; 
+var cities = ["Irmo", "Cairo", "Waukesha"];
+
+var searchBtn = document.querySelector("#search-btn");
+var searchBar = document.querySelector("#search-bar");
+var searchList = document.querySelector("#search-list");
 
 function loadCityData() {
     // get city data from local storage
@@ -14,6 +17,26 @@ function loadCityData() {
         localStorage.setItem("cities", JSON.stringify(cities));
     } else {
         cities = JSON.parse(localStorage.getItem("cities"));
+        loadCities();
+    }
+}
+
+function loadCities() {
+    // create previous searches
+    for (var i = cities.length-1; i >= 0; i--) {
+        // create a list item
+        var li = document.createElement("li");
+
+        // create a button
+        var btn = document.createElement("button");
+        btn.setAttribute("type", "button");
+        btn.classList.add("p-search");
+        btn.innerHTML = cities[i];
+        // append to list item
+        li.appendChild(btn);
+
+        //append li to searchList
+        searchList.appendChild(li);
     }
 }
 
@@ -24,9 +47,16 @@ fetch(url)
     return response.json();
 }).then(function(data){
     console.log(data);
+    icon = getIcon(data.current.weather[0]);
 }).catch(function(error){
     console.log(error.message);
 })
+}
+
+function getIcon(day) {
+    var tempIcon = day.icon;
+    tempIcon = "http://openweathermap.org/img/wn/" + tempIcon + "@2x.png";
+    return tempIcon;
 }
 
 // get coorinates of a city
@@ -38,12 +68,10 @@ function getCoords(city) {
     .then(function (response){
         return response.json();
     }).then(function(data){
-        console.log(data);
         if (data.length !== 0){
             // set latitude and longitude
             lat = data[0].lat;
             lon = data[0].lon;
-            console.log(lat, lon);
             // create url to fetch
             var weatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat +"&lon="+ lon +"&exclude=minutely,hourly,alerts&appid=" + apiKey + "&units=imperial";
             getWeatherInfo(weatherUrl);
@@ -56,14 +84,18 @@ function getCoords(city) {
 
 }
 
+// event listeners
+searchBtn.addEventListener("click", function(event){
+    event.preventDefault();
+
+    // check if search bar contains any information
+    if (searchBar.value){
+        console.log("Value detected")
+    } else {
+        console.log("No value detected")
+    }
+})
+
+loadCityData();
 // getInfo(cityUrl);
-getCoords(cityInput);
-
-
-
-
-
-
-
-
-
+// getCoords(cityInput);
