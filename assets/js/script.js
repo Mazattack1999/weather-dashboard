@@ -5,7 +5,7 @@ var lon;
 var icon;
 var weatherInfo;
 
-var cities = ["Irmo", "Cairo", "Waukesha"];
+var cities = [];
 
 var searchBtn = document.querySelector("#search-btn");
 var searchBar = document.querySelector("#search-bar");
@@ -84,13 +84,33 @@ function getCoords(city) {
 
 }
 
+function appendPreviousSearch(city) {
+    var recentLi = searchList.querySelector("li");
+    
+    // create new list item
+    var li = document.createElement("li");
+
+    // create a button
+    var btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.classList.add("p-search");
+    btn.innerHTML = city;
+    // append to list item
+    li.appendChild(btn);
+
+    // insert list item at top of list
+    searchList.insertBefore(li, recentLi);
+}
+
 // event listeners
 searchBtn.addEventListener("click", function(event){
     event.preventDefault();
 
     // check if search bar contains any information
     if (searchBar.value){
-        console.log("Value detected")
+        getCoords(searchBar.value);
+        appendPreviousSearch(searchBar.value);
+        searchBar.value = "";
     } else {
         console.log("No value detected")
     }
