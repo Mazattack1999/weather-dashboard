@@ -1,5 +1,4 @@
 var apiKey = "306788568658af908965e1ffaa757f64";
-var cityInput = "Cairo";
 var lat;
 var lon;
 var icon;
@@ -10,6 +9,12 @@ var cities = [];
 var searchBtn = document.querySelector("#search-btn");
 var searchBar = document.querySelector("#search-bar");
 var searchList = document.querySelector("#search-list");
+
+var currentSection = document.querySelector(".current-forecast");
+var currentSectionInfo = document.querySelector(".current-forecast-info");
+var futureSection = document.querySelector(".future-forecast");
+var futureSectionInfo = document.querySelector(".future-forecast-info");
+
 
 function loadCityData() {
     // get city data from local storage
@@ -46,11 +51,54 @@ fetch(url)
 .then(function (response){
     return response.json();
 }).then(function(data){
-    console.log(data);
-    icon = getIcon(data.current.weather[0]);
+    displayWeatherInfo(data);
 }).catch(function(error){
     console.log(error.message);
 })
+}
+
+function displayWeatherInfo (data) {
+    console.log(data);
+    // start with current day
+    var city = cities[cities.length-1];
+    var date = "insert date here";
+    var icon = getIcon(data.current.weather[0]);
+    var temp = data.current.temp;
+    var wind = data.current.wind_speed;
+    var hum = data.current.humidity;
+    
+    // set section title
+    var currentTitle = currentSection.querySelector(".current-header");
+    currentTitle.innerHTML = city + " (" + date + ") <img src="+ icon + " width=40px height=40px>";
+    //delete old info
+    if (currentSectionInfo) {
+        currentSectionInfo.remove();
+    }
+    // create new info conatiner
+    currentSectionInfo = document.createElement("div");
+    currentSectionInfo.classList.add("current-forecast-info");
+    loadTWH(temp, wind, hum, currentSectionInfo);
+    //append to currentSection
+    currentSection.appendChild(currentSectionInfo);
+}
+
+// load tempurature, wind, and humidity
+function loadTWH (temp, wind, hum, section) {
+    // create temp p
+    tContent = document.createElement("p");
+    tContent.innerHTML = "Temp: " + temp + "°F";
+    section.appendChild(tContent);
+
+    // create wind p
+    wContent = document.createElement("p");
+    wContent.innerHTML = "Wind: " + wind + "MPH";
+    section.appendChild(wContent);
+
+    // create hum p
+    hContent = document.createElement("p");
+    hContent.innerHTML = "Humidity: " + hum + "%";
+    section.appendChild(hContent);
+
 }
 
 function getIcon(day) {
@@ -129,5 +177,9 @@ searchList.addEventListener("click", function(event){
 })
 
 loadCityData();
-// getInfo(cityUrl);
-// getCoords(cityInput);
+// load data of most recent searched city if any have been searched
+if (cities.length > 0){
+    getCoords(cities[cities.length-1]);
+}
+
+
