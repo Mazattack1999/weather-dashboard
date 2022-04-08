@@ -100,6 +100,10 @@ function appendPreviousSearch(city) {
 
     // insert list item at top of list
     searchList.insertBefore(li, recentLi);
+
+    // append city to cities and update localStorage
+    cities.push(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
 }
 
 // event listeners
@@ -113,6 +117,14 @@ searchBtn.addEventListener("click", function(event){
         searchBar.value = "";
     } else {
         console.log("No value detected")
+    }
+})
+
+searchList.addEventListener("click", function(event){
+    if (event.target.getAttribute("class") === "p-search") {
+        var city = event.target.innerHTML;
+        getCoords(city);
+        appendPreviousSearch(city);
     }
 })
 
