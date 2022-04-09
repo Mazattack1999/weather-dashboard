@@ -178,13 +178,13 @@ function loadTWH (temp, wind, hum, section) {
 
 function getIcon(day) {
     var tempIcon = day.icon;
-    tempIcon = "http://openweathermap.org/img/wn/" + tempIcon + "@2x.png";
+    tempIcon = "https://openweathermap.org/img/wn/" + tempIcon + "@2x.png";
     return tempIcon;
 }
 
 // get coorinates of a city
 function getCoords(city) {
-    var cityUrl ="http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + apiKey;
+    var cityUrl ="https://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + apiKey;
 
     // fetch city coordinates
     fetch(cityUrl)
