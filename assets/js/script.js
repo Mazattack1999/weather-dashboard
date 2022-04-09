@@ -58,10 +58,9 @@ fetch(url)
 }
 
 function displayWeatherInfo (data) {
-    console.log(data);
     // start with current day
     var city = cities[cities.length-1];
-    var date = "insert date here";
+    var date = moment().format("MM/DD/YYYY");
     var icon = getIcon(data.current.weather[0]);
     var temp = data.current.temp;
     var wind = data.current.wind_speed;
@@ -134,7 +133,7 @@ function displayFutureForecast(data) {
 
         // create date element
         tDate = document.createElement("h4");
-        tDate.innerHTML = "Insert date here";
+        tDate.innerHTML = moment().add(i, 'd').format("MM/DD/YYYY");
         section.appendChild(tDate);
 
         // create icon element
@@ -152,8 +151,6 @@ function displayFutureForecast(data) {
         futureSectionInfo.appendChild(section);
     }
 
-    console.log(futureSectionInfo);
-    console.log(futureSection);
     // append card container to future info
     futureSection.appendChild(futureSectionInfo);
 

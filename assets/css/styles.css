@@ -150,6 +150,10 @@ main {
 /* Current Forecast section end */
 
 /* Future Forecast section start */
+.future-forecast h3 {
+ margin: 10px 0 0 0;
+}
+
 #card-container {
     display: flex;
     flex-wrap: wrap;
@@ -166,7 +170,7 @@ main {
 }
 
 .card h4 {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .card img {
