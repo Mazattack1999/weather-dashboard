@@ -77,9 +77,39 @@ function displayWeatherInfo (data) {
     // create new info conatiner
     currentSectionInfo = document.createElement("div");
     currentSectionInfo.classList.add("current-forecast-info");
+    // load tempurature, wind, and humidity
     loadTWH(temp, wind, hum, currentSectionInfo);
+
+    // create UV p
+    var uvContent = document.createElement("p");
+    uvContent.innerHTML = "UV Index: <span>" + data.current.uvi + "</span>";
+    var uvSpan = uvContent.querySelector("span");
+    uvSpan.classList.add("uv");
+    
+    if (data.current.uvi > 5) {
+        // severe
+        uvSpan.classList.add("uv-sev");
+    } else if (data.current.uvi > 2) {
+        // moderate
+        uvSpan.classList.add("uv-mod");
+    } else {
+        uvSpan.classList.add("uv-fav");
+    }
+
+    //append to currentSectionInfo
+    currentSectionInfo.appendChild(uvContent);
+
+
     //append to currentSection
     currentSection.appendChild(currentSectionInfo);
+
+    // delete old info
+    if (futureSection){
+        futureSection.remove();
+    }
+
+    // create new card container
+
 }
 
 // load tempurature, wind, and humidity
@@ -125,6 +155,7 @@ function getCoords(city) {
             getWeatherInfo(weatherUrl);
         } else {
             console.log("City not found");
+            // currentSection.querySelector(".current-header").innerHTML = "City Not Found";
         }
     }).catch(function(error){
         console.log(error.message);

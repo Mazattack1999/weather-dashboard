@@ -118,4 +118,32 @@ main {
     align-items: center;
 }
 
+.current-forecast-info p {
+    margin: 10px 0 10px 0;
+}
+
+.uv {
+    color: var(--color3);
+    border: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 1px 5px;
+}
+
+.uv-sev {
+    border-color: red;
+    background: red;
+}
+
+.uv-mod {
+    color: black;
+    border-color: rgb(255, 255, 1);
+    background: rgb(255, 255, 1);
+}
+
+.uv-fav {
+    border-color: green;
+    background: green;
+}
+
 /* Forecast section end */
