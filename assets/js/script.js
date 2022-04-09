@@ -103,12 +103,60 @@ function displayWeatherInfo (data) {
     //append to currentSection
     currentSection.appendChild(currentSectionInfo);
 
-    // delete old info
-    if (futureSection){
-        futureSection.remove();
+    // display 5-day forcast cards
+    displayFutureForecast(data);
+
+}
+
+function displayFutureForecast(data) {
+    var forecast = data.daily;
+
+     // delete old info
+     if (futureSectionInfo){
+        futureSectionInfo.remove();
     }
 
     // create new card container
+    futureSectionInfo = document.createElement("div");
+    futureSectionInfo.setAttribute("id", "card-container");
+
+    var temp;
+    var wind;
+    var hum;
+    var section;
+    var tDate;
+    var tIcon;
+
+    for (var i = 1; i < 6; i++) {
+        // create card 
+        section = document.createElement("div");
+        section.classList.add("card");
+
+        // create date element
+        tDate = document.createElement("h4");
+        tDate.innerHTML = "Insert date here";
+        section.appendChild(tDate);
+
+        // create icon element
+        tIcon = document.createElement("img");
+        tIcon.setAttribute("src", getIcon(forecast[i].weather[0]));
+        section.appendChild(tIcon);
+
+        // get temp, wind, and hum for day being checked
+        temp = forecast[i].temp.day;
+        wind = forecast[i].wind_speed;
+        hum = forecast[i].humidity;
+        loadTWH(temp, wind, hum, section);
+
+        // append section to card container
+        futureSectionInfo.appendChild(section);
+    }
+
+    console.log(futureSectionInfo);
+    console.log(futureSection);
+    // append card container to future info
+    futureSection.appendChild(futureSectionInfo);
+
 
 }
 
@@ -121,7 +169,7 @@ function loadTWH (temp, wind, hum, section) {
 
     // create wind p
     wContent = document.createElement("p");
-    wContent.innerHTML = "Wind: " + wind + "MPH";
+    wContent.innerHTML = "Wind: " + wind + " MPH";
     section.appendChild(wContent);
 
     // create hum p
